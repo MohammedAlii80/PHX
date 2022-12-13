@@ -59,13 +59,13 @@
     ],
     'assets': {
         'web.assets_backend': [
-            'ohrms_core/static/src/js/appMenu.js',
-            'ohrms_core/static/src/js/data.js',
-            'ohrms_core/static/src/css/menu_order_alphabets.css',
+#             'ohrms_core/static/src/js/appMenu.js',
+#             'ohrms_core/static/src/js/data.js',
+#             'ohrms_core/static/src/css/menu_order_alphabets.css',
         ],
         'web.assets_qweb': [
-            'ohrms_core/static/src/xml/link_view.xml',
-            'ohrms_core/static/templates/side_bar.xml',
+#             'ohrms_core/static/src/xml/link_view.xml',
+#             'ohrms_core/static/templates/side_bar.xml',
         ],
     },
     'images': ['static/description/banner.gif'],
