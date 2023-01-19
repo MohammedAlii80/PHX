@@ -1,0 +1,22 @@
+<odoo>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="account_bank_statement_form_inherit" model="ir.ui.view">
+            <field name="name">account bankstatement</field>
+            <field name="model">account.bank.statement</field>
+            <field name="inherit_id" ref="account.view_bank_statement_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='date']" position="after">
+                    <field name="state_st"/>
+                </xpath>
+<!--                class="oe_subtotal_footer_separator oe_inline"-->
+                <xpath expr="//div[@class='oe_subtotal_footer_separator oe_inline']" position="before">
+                    <field name="sum_amount"/>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

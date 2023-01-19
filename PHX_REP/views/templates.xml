@@ -1,0 +1,459 @@
+<odoo>
+    <data>
+        <report
+                id="phx_project_report"
+                model="account.bank.statement"
+                report_type="qweb-pdf"
+                string="PHX Report"
+                name="PHX_REP.phx_custom_report"
+                file="PHX_REP.phx_custom_report"
+        />
+
+        <template id="phx_custom_report">
+            <t t-call="web.html_container">
+                <t t-call="web.basic_layout">
+                    <t t-foreach="docs" t-as="o">
+                        <t t-if="o.state_st=='receipt'">
+
+                            <div align="center">
+                                <div align="center">
+                                    <h3>ايصال استلام نقدية</h3>
+                                    <br/>
+                                    <p1>فينيكس للاستشارات ونظم المعلومات
+                                    </p1>
+                                </div>
+
+
+                            </div>
+                            <hr/>
+
+                            <div class="col-12"
+                                 style="position:absolute;front-size:8em;width:100%;text-align:right;z-index:100;">
+                                <t t-if='o.company_id.logo'>
+                                    <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)"
+                                         style="max-height: 70px;"
+                                         alt="Logo"/>
+                                    <br/>
+                                    <!--                            <th align="center">شركة أطلسكو إيجيبت للتجارة ش.م.</th>-->
+                                </t>
+                            </div>
+                            <br/>
+                            <h5>المبلغ</h5>
+                            <table class="table table-left" style="width:20%">
+                                <!--                            <caption>المبلغ</caption>-->
+                                <tr>
+                                    <th>جنيه</th>
+                                    <!--                                    <th>قروش</th>-->
+                                </tr>
+                                <tr>
+                                    <td t-if="o">
+                                        <span t-field="o.balance_end"></span>
+                                    </td>
+                                    <!--                                    <td t-if="o">-->
+                                    <!--                                        <span t-field="o.balance_end"></span>-->
+                                    <!--                                    </td>-->
+                                </tr>
+                            </table>
+
+
+                            <div class="text-right">
+                                <strong>التاريخ:</strong>
+                                <span t-field="o.date"/>
+                            </div>
+                            <br/>
+
+                            <div class="text-right">
+                                <t t-set="counter" t-value="0"/>
+                                <t t-foreach="o.line_ids" t-as="line">
+                                    <tr t-if="line">
+                                        <t t-if="counter == 0">
+                                            <strong>يصرف للسيد:</strong>
+                                            <span t-field="line.partner_id"/>
+                                        </t>
+                                        <t t-set="counter" t-value="counter + 1"/>
+                                    </tr>
+                                </t>
+
+
+                            </div>
+                            <br/>
+                            <div class="text-right">
+                                <strong>مبلغ وقدره:
+                                    <span t-field="o.text_amount"/>
+                                    جنيها فقط لا غير
+                                    <br/>
+                                </strong>
+                            </div>
+                            <br/>
+
+                            <div class="text-right">
+                                <strong>:ودلك قيمة التالي</strong>
+                            </div>
+                            <br/>
+
+
+                            <table class="table">
+                                <thead>
+                                    <th style="background-color: #dee2e6;">الاجمالي</th>
+                                    <th style="text-align: center;background-color: #dee2e6;">الوصف</th>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="o.line_ids" t-as="line">
+                                        <tr t-if="line">
+                                            <td>
+                                                <span t-field="line.amount"></span>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.payment_ref"></span>
+
+
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                                <br/>
+
+                            </table>
+                            <br/>
+
+                            <table>
+                                <tr>
+                                    الاجمالي :
+
+                                </tr>
+                                <tr>
+                                    <tr>
+                                        <span style="background-color: #dee2e6;" t-field="o.sum_amount"></span>
+
+                                    </tr>
+
+                                </tr>
+                            </table>
+
+
+                            <hr/>
+
+                            <div align="center">
+
+                                <div style="width:40%;float:left">
+                                    <span style="margin-left:150px">
+                                        <p>.............................:المدير المسؤل</p>
+                                        <br/>
+                                        <!--                                        <p>.............................:الاسم</p>-->
+                                        <!--                                        <br></br>-->
+                                        <!--                                        <p>..............................التوقيع</p>-->
+                                        <!--                                        <br></br>-->
+                                        <!--                                        <p>...........................رقم البطاقة</p>-->
+                                    </span>
+                                </div>
+                                <!--                                <div class="text-right">-->
+                                <!--                                    <span t-field="o.user_id"/>-->
+                                <!--                                    <strong>المسؤل:</strong>-->
+                                <!--                                </div>-->
+                            </div>
+                            <br/>
+                            <br/>
+                        </t>
+                    </t>
+                </t>
+            </t>
+            <t t-call="web.html_container">
+                <t t-call="web.basic_layout">
+                    <t t-foreach="docs" t-as="o">
+                        <t t-if="o.state_st=='send'">
+
+                            <div align="center">
+                                <div align="center">
+                                    <h3>ايصال صرف نقدية</h3>
+                                    <br/>
+                                    <p1>فينيكس للاستشارات ونظم المعلومات
+                                    </p1>
+                                </div>
+
+
+                            </div>
+                            <hr/>
+
+                            <div class="col-12"
+                                 style="position:absolute;front-size:8em;width:100%;text-align:right;z-index:100;">
+                                <t t-if='o.company_id.logo'>
+                                    <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)"
+                                         style="max-height: 70px;"
+                                         alt="Logo"/>
+                                    <br/>
+                                    <!--                            <th align="center">شركة أطلسكو إيجيبت للتجارة ش.م.</th>-->
+                                </t>
+                            </div>
+                            <br/>
+                            <h5>المبلغ</h5>
+                            <table class="table table-left" style="width:20%">
+                                <!--                            <caption>المبلغ</caption>-->
+                                <tr>
+                                    <th>جنيه</th>
+                                    <!--                                    <th>قروش</th>-->
+                                </tr>
+                                <tr>
+                                    <td t-if="o">
+                                        <span t-field="o.balance_end"></span>
+                                    </td>
+                                    <!--                                    <td t-if="o">-->
+                                    <!--                                        <span t-field="o.balance_end"></span>-->
+                                    <!--                                    </td>-->
+                                </tr>
+                            </table>
+
+
+                            <div class="text-right">
+                                <strong>التاريخ:</strong>
+                                <span t-field="o.date"/>
+                            </div>
+                            <br/>
+
+                            <div class="text-right">
+                                <t t-set="counter" t-value="0"/>
+                                <t t-foreach="o.line_ids" t-as="line">
+                                    <tr t-if="line">
+                                        <t t-if="counter == 0">
+                                            <strong>يصرف للسيد:</strong>
+                                            <span t-field="line.partner_id"/>
+                                        </t>
+                                        <t t-set="counter" t-value="counter + 1"/>
+                                    </tr>
+                                </t>
+
+
+                            </div>
+                            <br/>
+                            <div class="text-right">
+                                <strong>مبلغ وقدره:
+                                    <span t-field="o.text_amount"/>
+                                    جنيها فقط لا غير
+                                    <br/>
+                                </strong>
+                            </div>
+                            <br/>
+
+                            <div class="text-right">
+                                <strong>:ودلك قيمة التالي</strong>
+                            </div>
+                            <br/>
+
+
+                            <table class="table">
+                                <thead>
+                                    <th style="background-color: #dee2e6;">الاجمالي</th>
+                                    <th style="text-align: center;background-color: #dee2e6;">الوصف</th>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="o.line_ids" t-as="line">
+                                        <tr t-if="line">
+                                            <td>
+                                                <span t-field="line.amount"></span>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.payment_ref"></span>
+
+
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                                <br/>
+
+                            </table>
+                            <br/>
+
+                            <table>
+                                <tr>
+                                    الاجمالي :
+
+                                </tr>
+                                <tr>
+                                    <tr>
+                                        <span style="background-color: #dee2e6;" t-field="o.sum_amount"></span>
+
+                                    </tr>
+
+                                </tr>
+                            </table>
+
+
+                            <hr/>
+
+                            <div align="center">
+
+                                <div style="width:40%;float:left">
+                                    <span style="margin-left:150px">
+                                        <p>.............................:اسم المستلم</p>
+                                        <br/>
+                                        <p>.............................:الاسم</p>
+                                        <br></br>
+                                        <p>..............................التوقيع</p>
+                                        <br></br>
+                                        <p>...........................رقم البطاقة</p>
+                                    </span>
+                                </div>
+                                <div class="text-right">
+                                    <span t-field="o.user_id"/>
+                                    <strong>المسؤل:</strong>
+                                </div>
+                            </div>
+                            <br/>
+                            <br/>
+                        </t>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <template id="phx_custom_report_id">
+            <t t-call="web.html_container">
+                <t t-call="web.basic_layout">
+                    <t t-foreach="docs" t-as="o">
+                        <t t-if="o.state_st=='send'">
+
+                            <div align="center">
+                                <div align="center">
+                                    <h3>ايصال صرف نقدية</h3>
+                                    <br/>
+                                    <p1>فينيكس للاستشارات ونظم المعلومات
+                                    </p1>
+                                </div>
+
+
+                            </div>
+                            <hr/>
+
+                            <div class="col-12"
+                                 style="position:absolute;front-size:8em;width:100%;text-align:right;z-index:100;">
+                                <t t-if='o.company_id.logo'>
+                                    <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)"
+                                         style="max-height: 70px;"
+                                         alt="Logo"/>
+                                    <br/>
+                                    <!--                            <th align="center">شركة أطلسكو إيجيبت للتجارة ش.م.</th>-->
+                                </t>
+                            </div>
+                            <br/>
+                            <h5>المبلغ</h5>
+                            <table class="table table-left" style="width:20%">
+                                <!--                            <caption>المبلغ</caption>-->
+                                <tr>
+                                    <th>جنيه</th>
+                                    <!--                                    <th>قروش</th>-->
+                                </tr>
+                                <tr>
+                                    <td t-if="o">
+                                        <span t-field="o.balance_end"></span>
+                                    </td>
+                                    <!--                                    <td t-if="o">-->
+                                    <!--                                        <span t-field="o.balance_end"></span>-->
+                                    <!--                                    </td>-->
+                                </tr>
+                            </table>
+
+
+                            <div class="text-right">
+                                <strong>التاريخ:</strong>
+                                <span t-field="o.date"/>
+                            </div>
+                            <br/>
+
+                            <div class="text-right">
+                                <t t-set="counter" t-value="0"/>
+                                <t t-foreach="o.line_ids" t-as="line">
+                                    <tr t-if="line">
+                                        <t t-if="counter == 0">
+                                            <strong>يصرف للسيد:</strong>
+                                            <span t-field="line.partner_id"/>
+                                        </t>
+                                        <t t-set="counter" t-value="counter + 1"/>
+                                    </tr>
+                                </t>
+
+
+                            </div>
+                            <br/>
+                            <div class="text-right">
+                                <strong>مبلغ وقدره:
+                                    <span t-field="o.text_amount"/>
+                                    جنيها فقط لا غير
+                                    <br/>
+                                </strong>
+                            </div>
+                            <br/>
+
+                            <div class="text-right">
+                                <strong>:ودلك قيمة التالي</strong>
+                            </div>
+                            <br/>
+
+
+                            <table class="table">
+                                <thead>
+                                    <th style="background-color: #dee2e6;">الاجمالي</th>
+                                    <th style="text-align: center;background-color: #dee2e6;">الوصف</th>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="o.line_ids" t-as="line">
+                                        <tr t-if="line">
+                                            <td>
+                                                <span t-field="line.amount"></span>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.payment_ref"></span>
+
+
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                                <br/>
+
+                            </table>
+                            <br/>
+
+                            <table>
+                                <tr>
+                                    الاجمالي :
+
+                                </tr>
+                                <tr>
+                                    <tr>
+                                        <span style="background-color: #dee2e6;" t-field="o.sum_amount"></span>
+
+                                    </tr>
+
+                                </tr>
+                            </table>
+
+
+                            <hr/>
+
+                            <div align="center">
+
+                                <div style="width:40%;float:left">
+                                    <span style="margin-left:150px">
+                                        <p>.............................:اسم المستلم</p>
+                                        <br/>
+                                        <p>.............................:الاسم</p>
+                                        <br></br>
+                                        <p>..............................التوقيع</p>
+                                        <br></br>
+                                        <p>...........................رقم البطاقة</p>
+                                    </span>
+                                </div>
+                                <div class="text-right">
+                                    <strong>المسؤل:</strong>
+                                    <span t-field="o.user_id"/>
+                                </div>
+                            </div>
+                            <br/>
+                            <br/>
+                        </t>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>
